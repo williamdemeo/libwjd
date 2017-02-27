@@ -1,0 +1,8 @@
+datafile contains wire bonding data in the following form:
+
+[1 X y]
+
+Where 1 is a column of one's, X is a matrix of four covariates
+(Force, Power, Temp, Time) and y is a vector containing the response
+variable (Strength).  The number of rows (observations) is 30.
+

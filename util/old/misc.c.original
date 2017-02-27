@@ -1,0 +1,214 @@
+ /* miscellaneous useful functions */
+
+/* (1)   matprint -- print a matrix of doubles                       */
+/* (2)   lmatprint -- print a matrix of longs                        */
+/* (3)   matcopy -- copy a matrix of doubles                         */
+/* (4.a) matread -- read an n*p matrix of doubles from a file        */
+/* (4.b) matlabread -- read a matrix stored column-wise in a file    */
+/* (5)   matwrite -- write an n*p matrix of double to file           */
+/* (6)   check  -- checks file opened properly                       */
+/* (7)   invert_ut -- invert an upper triagular matrix               */
+/* (8)   x_t_y -- matrix mult of X Transpose * Y                     */
+/* (9)   x_t_x -- matrix mult of X Transpose * X                     */
+/* (10)  factorial -- compute n!                                     */
+/* (11)  binomial -- compute binomial coeficient "n choose x"        */
+/* (12)  kron -- find kronnecker product of two vectors              */
+
+#include<stdio.h>
+#include<stdlib.h>
+/* (1) */
+void    matprint(double *x, long nrow, long ncol)
+{
+	long    i, j;
+
+	for (i = 0; i < nrow; i++)
+	{
+		for (j = 0; j < ncol; j++)
+			printf("%4.5lf \t", x[nrow * j + i]);
+		printf("\n");
+	}
+}
+
+/* (2) */
+
+void    lmatprint(long *x, long nrow, long ncol)
+{
+	long    i, j;
+
+	for (i = 0; i < nrow; i++)
+	{
+		for (j = 0; j < ncol; j++)
+			printf("%ld \t", x[nrow * j + i]);
+		printf("\n");
+	}
+}
+
+/* (3) */
+void    matcopy(double *from, double *to, long nrow, long ncol)
+{
+	long    i;
+
+	for (i = 0; i < (nrow * ncol); i++)
+		to[i] = from[i];
+}
+
+/* (4.a) read a matrix and store it column-wise */
+void    matread(double *x, long nrow, long ncol, char *file_to_read)
+{
+        void    check(FILE *);
+	long    c, i;
+	FILE   *infile;
+
+	infile = fopen(file_to_read, "r");
+	check(infile);
+	for (i = 0; i < nrow; i++)
+	{
+		for (c = 0; c < ncol; c++)
+			fscanf(infile, "%lf", x + nrow * c + i);
+	}
+        close(infile);
+}
+/* (4.b) read a matrix stored column-wise and store it column-wise */
+void    matlabread(double *x, long nrow, long ncol, char *file_to_read)
+{
+        void    check(FILE *);
+	long    i;
+	FILE   *infile;
+
+	infile = fopen(file_to_read, "r");
+	check(infile);
+	for (i = 0; i < (nrow*ncol); i++)
+		fscanf(infile, "%lf", x + i);
+        close(infile);
+}
+
+/* (5) */
+void    matwrite(double *x, long nrow, long ncol, char *file_to_write)
+{
+    void    check(FILE *);
+    long    c, i;
+    FILE   *outfile;
+
+    outfile = fopen(file_to_write, "w");
+    check(outfile);
+    for (i = 0; i < nrow; i++)
+    {
+        for(c = 0; c < ncol; c++)
+            fprintf(outfile, "%4.5lf   ", x[nrow * c + i]);
+        fprintf(outfile, "\n");
+    }
+    close(outfile);
+}    
+
+/* (6) */
+void    check(FILE * a)
+{				/* this function checks that I can open file */
+	if (a == NULL)
+	{
+		printf("\nERROR: Unable to open file data for reading\n");
+		exit(1);
+	}
+}
+
+/* (7) */
+void    invert_ut(double *t, double *u, long p)
+{				/* inverse is u */
+	long    i, j, k;
+	double  temp;
+
+	for (j = 0; j < p; j++)
+	{			/* check to see if upper triangular t is
+				 * singular */
+		if (t[j * p + j] < 1.e-8)
+		{
+			printf("\nERROR: singular matrix passed to 'invert_ut'\n");
+			exit(2);
+		}
+	}
+	for (j = p - 1; j >= 0; j--)
+	{
+		u[j * p + j] = 1 / t[j * p + j];
+		for (k = j - 1; k >= 0; k--)
+		{
+			temp = 0;
+			for (i = k + 1; i <= j; i++)
+				temp += t[i * p + k] * u[j * p + i];
+			u[j * p + k] = -1. * temp / t[k * p + k];
+		}
+	}
+}
+
+/* (8) */
+/* x is n by p, and y is n by q matrix , stored by columns: ret. via z */
+void    x_t_y(double *x, double *y, double *z, long n, long p, long q)
+{
+	long    i, j, k;
+	double  temp;
+
+	for (i = 0; i < p; i++)
+	{
+		for (j = 0; j < q; j++)
+		{
+			temp = 0;
+			for (k = 0; k < n; k++)
+				temp += x[n * i + k] * y[n * j + k];
+			z[p * j + i] = temp;
+		}
+	}
+}
+
+/* (9) */
+/* x is n by p, stored by columns, x transpose x returned via z */
+void    x_t_x(double *x, double *z, long n, long p)
+{
+	long    i, j, k;
+	double  temp;
+
+	for (i = 0; i < p; i++)
+	{
+		for (j = i; j < p; j++)
+		{
+			temp = 0;
+			for (k = 0; k < n; k++)
+				temp += x[n * i + k] * x[n * j + k];
+			z[p * j + i] = z[p * i + j] = temp;
+		}
+	}
+}
+
+/* (10) */
+/* compute n facorial */
+long     factorial(long n)
+{
+    long t, k;
+    
+    t = 1;
+    for(k=2;k<=n; t *= k++);
+    return(t);                                                           
+}
+
+/* (11) */
+/* compute n choose x */
+long     binomial(long n, long x)
+{
+    long factorial(long n);
+    if(x>n)
+    {
+        printf("\nERROR: Parameter out of range in 'binomial(n,x)'\n");
+        exit(2);
+    }
+    return(factorial(n)/(factorial(x) * factorial(n-x)));
+}
+
+/* (12) */
+/* Find kronnecker product of m by 1 vector a
+   and n by vector b.  Resulting m*n by 1 product
+   is passed back via c */
+void kron(long *a, long m, long *b, long n, long *c)
+{
+    long i, j; 
+
+    for(j=0;j<m;j++)
+        for(i=0;i<n;i++)
+            c[j*n + i] = a[j]*b[i];
+}

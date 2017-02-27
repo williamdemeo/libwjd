@@ -1,0 +1,55 @@
+**** Build of configuration Debug for project TTM ****
+
+make all 
+Building target: TTM
+Invoking: GCC C++ Linker
+g++  -o"TTM"  ./BinarySeries.o ./DateTime.o ./DickeyFullerTest.o ./Export.o ./FXTester.o ./FixedSeries.o ./PairsModel.o ./PaperAccount.o ./ParameterSweep.o ./RandomSequence.o ./Regression.o ./TimeIntervalData.o ./TimeSeries.o ./TrendModel.o ./UnitTest.o ./main.o ./misc.o ./qr.o ./tools.o ./utilities.o   -llapack -lblas
+./BinarySeries.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./DateTime.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./DickeyFullerTest.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./Export.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./FXTester.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./FXTester.o: In function `UTFXTester':
+/home/william/Eclipse/workspace/TTM/Debug/../FXTester.cpp:101: undefined reference to `ttm::UnitTest::UnitTest(ttm::UnitTest::Areas, std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)'
+./FixedSeries.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./PairsModel.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./PaperAccount.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./RandomSequence.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./TimeIntervalData.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./TimeSeries.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./TrendModel.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./main.o: In function `main':
+/home/william/Eclipse/workspace/TTM/Debug/../main.cpp:47: undefined reference to `ttm::g_unit_tests'
+/home/william/Eclipse/workspace/TTM/Debug/../main.cpp:47: undefined reference to `ttm::UnitTestSuite::run(std::basic_ostream<char, std::char_traits<char> >*)'
+./main.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+./tools.o: In function `__static_initialization_and_destruction_0':
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::UnitTestSuite_initializer()'
+/home/william/Eclipse/workspace/TTM/Debug/../UnitTest.h:70: undefined reference to `ttm::UnitTestSuite_initializer::~UnitTestSuite_initializer()'
+collect2: ld returned 1 exit status
+make: *** [TTM] Error 1

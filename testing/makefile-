@@ -1,0 +1,78 @@
+# makefile for QR and QRpiv
+# makefile for ctimedgemm.cc
+# modified: 20110816, 20031123
+#
+# Based on GNU/Linux Application Programming 2ed, by Tim Jones, p. 68.
+
+SRC_FILES=QR_test.c House.c
+
+VPATH = ../QR
+LIBD = /usr/lib/atlas-base
+# LIBD = /usr/local/atlas/lib
+CC = gcc
+CFLAGS = -c -g
+LDFLAGS = -g
+
+qr_test: ${OBJ_FILES}
+	${CC} ${LDFLAGS} -o qr_test ${OBJ_FILES} -L${LIBD} -lf77blas -lgfortran -latlas -lm
+
+%.o:%.c
+	${CC} ${CFLAGS} -o $@ $
+
+clean:
+	rm -f *.o qr_test
+
+# HOME = /home/william/pub/DeMeo/computing/src/C
+HOME = /home/williamdemeo/git/PROGRAMMING/C
+UTIL = $(HOME)/libwjd/util_lib.a
+INCL = -I$(HOME)/libwjd/include
+# LIBD = /usr/local/atlas/lib
+# CC = cc
+DECOMP = $(HOME)/libwjd/QR
+# INCL = -I$(HOME)/libwjd/include -I$(HOME)/stat243/samples
+INCL = -I$(HOME)/libwjd/include 
+CC = gcc
+
+# Variables for optimization on SUN
+# Reference:  Sunsoft Performace Library
+# /opt/SUNWspro/READMEs/libsunperf_preface.ps (p. viii)
+#LINK = -lsunperf -dalign -lblas # use these for link command
+COMPILE = -dalign # use this option for compile command on single processor
+MPCOMPILE = -dalign -mt  # multiprocessor compile command
+
+# 2001.10.21: No longer using the Sunsoft Performance Library
+#             Define new LINK variable here:
+# Defines for use with ATLAS are in Make.inc
+# include Make.inc
+COMPILE = 
+QRpiv: QRpiv.o $(DECOMP)/House.o
+	$(CC) -o QRpiv QRpiv.o $(DECOMP)/House.o $(UTIL) -L$(LIBdir) -lf77blas -lg2c -latlas -lm
+
+QRpiv.o: QRpiv.c
+	$(CC) $(COMPILE) $(INCL) -c QRpiv.c
+
+QR: QR.o $(DECOMP)/House.o
+	$(CC) -o QR QR.o $(DECOMP)/House.o $(UTIL) -L$(LIBdir) -lf77blas -lg2c -latlas -lm
+
+QR.o: QR.c
+	$(CC) $(COMPILE) $(INCL) -c QR.c
+
+QRptime: QRptime.o $(DECOMP)/House.o
+	$(CC) -o QRptime QRptime.o $(DECOMP)/House.o $(UTIL) -L$(LIBdir) -lf77blas -lg2c -latlas -lm
+
+QRptime.o: QRptime.c
+	$(CC) $(COMPILE) $(INCL) -c QRptime.c
+
+QRtime: QRtime.o $(DECOMP)/House.o
+	$(CC) -o QRtime QRtime.o $(DECOMP)/House.o $(UTIL) -L$(LIBdir) -lf77blas -lg2c -latlas -lm
+
+QRtime.o: QRtime.c
+	$(CC) $(COMPILE) $(INCL) -c QRtime.c
+
+$(DECOMP)/House.o: $(DECOMP)/House.c
+	$(CC) $(COMPILE) $(INCL) -c -o $(DECOMP)/House.o $(DECOMP)/House.c
+
+clean:
+	rm -f *.o *.a *~ 
+
+

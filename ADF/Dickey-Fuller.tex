@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+\usepackage{enumerate,amsmath,amssymb,fancyhdr,mathrsfs,amsthm,url,yhmath}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{tikz}
+\onehalfspacing
+\raggedbottom
+\usepackage[myheadings]{fullpage}
+
+\newcommand{\<}{\ensuremath{\langle}}
+\renewcommand{\>}{\ensuremath{\rangle}}
+\newcommand{\beps}{\ensuremath{\boldsymbol{\varepsilon}}}
+\newcommand{\bA}{\ensuremath{\mathbf{A}}}
+\newcommand{\id}{\ensuremath{\mathrm{id}}}
+\newcommand{\bB}{\ensuremath{\mathbf{B}}}
+\newcommand{\sS}{\ensuremath{\mathscr{S}}}
+\newcommand{\Eq}{\ensuremath{\mathrm{Eq}}}
+\newcommand{\Cg}{\ensuremath{\mathrm{Cg}}}
+\newcommand{\Stab}{\ensuremath{\mathrm{Stab}}}
+\newcommand{\Con}{\ensuremath{\mathrm{Con}}}
+\newcommand{\Pol}{\ensuremath{\mathrm{Pol}}}
+%\newcommand{\Pol1}{\ensuremath{\mathrm{Pol}_1}}
+\newcommand{\ps}[1]{\ensuremath{^{(#1)}}}
+\newcommand{\piB}{\ensuremath{\pi_B}}
+\newcommand{\hpsi}{\ensuremath{\hat{\psi}}}
+\newcommand{\htheta}{\ensuremath{\hat{\theta}}}
+\newcommand{\supi}{\ensuremath{^{(i)}}}
+\newcommand{\supj}{\ensuremath{^{(j)}}}
+\renewcommand{\leq}{\ensuremath{\leqslant}}
+\renewcommand{\nleq}{\ensuremath{\nleqslant}}
+\renewcommand{\geq}{\ensuremath{\geqslant}}
+\newcommand{\meet}{\ensuremath{\wedge}}
+\newcommand{\join}{\ensuremath{\vee}}
+\newcommand{\Meet}{\ensuremath{\bigwedge}}
+\renewcommand{\Join}{\ensuremath{\bigvee}}
+
+\pagestyle{fancy}
+\lhead{{\it Notes on the Dickey-Fuller Test}}  \chead{} \rhead{September 24, 2011}
+
+\begin{document}
+{\renewcommand{\thefootnote}{}\footnotetext{William DeMeo \url{<williamdemeo@gmail.com>}}}
+%\let\thefootnote\relax\footnotetext{\url{<williamdemeo@gmail.com>}}
+\section{Background}
+The Dickey-Fuller test is a standard method for testing whether or not a
+time-series is stationary.  This note gives a brief description of what the test
+does, and a bit about our implementation of it.
+
+\subsection{Matlab's implementation}
+The Matlab command {\bf adftest} provides an 
+augmented Dickey-Fuller test for a unit root.\\
+The models are: 
+\begin{itemize}
+\item 
+AR (autoregressive)
+\[
+H_0: y_t = y_{t-1} + b_1 \Delta  y_{t-1} +  \cdots + b_p\Delta y_{t-p} + e_t.
+\]
+\[
+H_1: y_{t} = a y_{t-1} + b_1\Delta y_{t-1} + \cdots + b_p\Delta y_{t-p} + e_t.
+\]
+with AR(1) coefficient $a < 1$.
+
+\item ARD (autoregressive with drift)
+tests AR null model against
+\[
+H_1:  y_{t} = c + a y_{t-1} + b_1\Delta y_{t-1} + b_2\Delta y_{t-2} + \cdots + b_p\Delta y_{t-p} + e_t.
+\]
+with drift coefficient $c$ and AR(1) coefficient $a < 1$.
+
+\item TS (trend stationary) 
+\[
+H_0: y_{t} = c +  y_{t-1} + b_1\Delta y_{t-1} + \cdots + b_p\Delta y_{t-p} + e_t.
+\]
+\[
+H_1: y_{t} = c + dt + a y_{t-1} + b_1\Delta y_{t-1} + \cdots + b_p\Delta y_{t-p} + e_t.
+\]
+with drift coefficient $c$, deterministic trend coefficient $d$, and AR(1) coefficient $a < 1$. 
+\end{itemize}
+The default model is AR.
+
+We need to have options for at least three different
+models, depending on our 
+assumptions about the series in question, as these different models will lead to
+different conclusions about stationarity.
+For example, when I used the Matlab routine on a five macroeconomic time-series,
+I found that, when the model is AR we could reject the null for all variables except inflation.
+Whereas, when the model is ARD, we fail to reject the null for all variables except inflation.
+
+
+
+
+\end{document}
+
